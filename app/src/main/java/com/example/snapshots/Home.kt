@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snapshots.databinding.FragmentHome2Binding
 import com.example.snapshots.databinding.ItemSapshotsBinding
@@ -62,7 +63,14 @@ private lateinit var mBinding: FragmentHome2Binding
 
             }
 
-
+            override fun onDataChanged(){
+                super.onDataChanged()
+                mBinding.progressBar.visibility= View.GONE
+            }
+            override fun onError(error: DatabaseError){
+                super.onError(error)
+               Toast.makeText(mContex, error.message, Toast.LENGTH_LONG).show()
+            }
         }
     }
 inner class SnapshotHolder(view: View): RecyclerView.ViewHolder(view){
