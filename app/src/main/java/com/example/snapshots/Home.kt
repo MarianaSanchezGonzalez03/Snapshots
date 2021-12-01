@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snapshots.databinding.FragmentHome2Binding
 import com.example.snapshots.databinding.ItemSapshotsBinding
+import java.text.FieldPosition
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,7 +38,32 @@ private lateinit var mBinding: FragmentHome2Binding
         val query= FirebaseDatabase.getInstance().references.child( "snapshots")
         val option= FirebaseRecyclerOptions.Builder<Snapshots>().setQuery(query, Snapshots:: class.java).build()
 
-        mFirebaseAdapter= object : FirebaseRecyclerAdapter<Snapshots>, SnapshotHolder>(options)
+        mFirebaseAdapter= object : FirebaseRecyclerAdapter<Snapshots>, SnapshotHolder>(options){
+
+            private lateinit var  mContex: Context
+            override fun onCreate(savedInstanceState: Bundle?) {
+                mContext=parent.context
+                val view= LayoutInflater.from(mContex).inflate(R.layout.item_sapshots, parent, false)
+                return SnapshotHolder(view)
+
+            }
+            override fun onBindViewHolder(holder: SnapshotHolder, position: Int, model:Snapshots){
+
+                val snapshot=   getItem(position)
+                with(holder){
+                    setListener(snapshot)
+                    binding.tvTitle.text=snapshot.title
+                    Glide.with(mContex)
+                        .load(snapshot.photoUrl)
+                        .diskCacheStrategy(DiskCakeStrategy.ALL)
+                        .centerCrop()
+                        .into(binding.imgPhoto)
+                }
+
+            }
+
+
+        }
     }
 inner class SnapshotHolder(view: View): RecyclerView.ViewHolder(view){
     val binding=ItemSapshotsBinding.bind(view)
