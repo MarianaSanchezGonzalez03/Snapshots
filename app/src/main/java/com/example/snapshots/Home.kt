@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.example.snapshots.databinding.ItemSapshotsBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,5 +29,10 @@ class Home : Fragment() {
         return inflater.inflate(R.layout.fragment_home2, container, false)
     }
 
+inner class SnapshotHolder(view: View): RecyclerView.ViewHolder(view){
+    val binding=ItemSapshotsBinding.bind(view)
+    fun setListener(Snapshots){
 
+    }
+}
 }
