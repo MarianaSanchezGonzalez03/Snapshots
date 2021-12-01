@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.snapshots.databinding.FragmentHome2Binding
 import com.example.snapshots.databinding.ItemSapshotsBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -20,15 +21,24 @@ private const val ARG_PARAM2 = "param2"
  */
 class Home : Fragment() {
 
-
+    private  lateinit var mFirebaseAdapter: FirebaseRecyclerAdapter<Snapshots, SnapshotHolder>
+private lateinit var mBinding: FragmentHome2Binding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home2, container, false)
+        mBinding_=FragmentHome2Binding.inflate(inflater, container, false)
+        return mBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val query= FirebaseDatabase.getInstance().references.child( "snapshots")
+        val option= FirebaseRecyclerOptions.Builder<Snapshots>().setQuery(query, Snapshots:: class.java).build()
+
+        mFirebaseAdapter= object : FirebaseRecyclerAdapter<Snapshots>, SnapshotHolder>(options)
+    }
 inner class SnapshotHolder(view: View): RecyclerView.ViewHolder(view){
     val binding=ItemSapshotsBinding.bind(view)
     fun setListener(Snapshots){
