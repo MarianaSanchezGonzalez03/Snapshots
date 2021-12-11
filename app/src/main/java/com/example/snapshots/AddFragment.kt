@@ -56,7 +56,7 @@ private fun saveSnapshot(){
         if (resultCode==Activity.RESULT_OK){
             if (requestCode== RC_GELLERY){
                 mPhotoSelectedUrl= data?.data
-                mBinding.imgPhoto.setImage
+                mBinding.imgPhoto.setImage URI
             }
         }
     }

@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snapshots.databinding.FragmentHome2Binding
 import com.example.snapshots.databinding.ItemSapshotsBinding
-import java.text.FieldPosition
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,7 +43,7 @@ private lateinit var mBinding: FragmentHome2Binding
             private lateinit var  mContex: Context
             override fun onCreate(savedInstanceState: Bundle?) {
                 mContext=parent.context
-                val view= LayoutInflater.from(mContex).inflate(R.layout.item_sapshots, parent, false)
+                val view= LayoutInflater.from(mContex).inflate(R.layout.item_stores, parent, false)
                 return SnapshotHolder(view)
 
             }
